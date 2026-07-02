@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "ReadFlow",
+  "version": "0.1.0",
+  "description": "TTS 朗读 + 内联笔记",
+  "permissions": ["storage", "activeTab", "scripting", "sidePanel", "tts"],
+  "side_panel": {
+    "default_path": "src/sidepanel/index.html"
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.ts"],
+      "css": ["src/content/notes.css"]
+    }
+  ],
+  "action": {
+    "default_title": "ReadFlow"
+  }
+}
