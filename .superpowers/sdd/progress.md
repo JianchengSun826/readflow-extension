@@ -6,7 +6,7 @@ Extension dir: /Users/jianchengsun/app/pdf-adjust-editter/extension
 
 ## Tasks
 
-- [ ] Task 1: 项目脚手架
+- [x] Task 1: 项目脚手架 (90b9183..c616ca3, review clean)
 - [ ] Task 2: 共享类型 + 工具函数
 - [ ] Task 3: Content Script — 段落提取
 - [ ] Task 4: Content Script — 内联笔记

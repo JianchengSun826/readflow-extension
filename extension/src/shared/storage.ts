@@ -10,6 +10,7 @@ export async function getNotes(url: string): Promise<NoteRecord> {
   return all[url] ?? {}
 }
 
+// NoteRecord key = anchorHash（按段落快速查找），note.id 用于删除时的值过滤
 export async function saveNote(url: string, note: Note): Promise<void> {
   const result = await chrome.storage.local.get(NOTES_KEY)
   const all = (result[NOTES_KEY] ?? {}) as AllNotes

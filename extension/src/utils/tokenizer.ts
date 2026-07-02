@@ -29,3 +29,5 @@ export function buildSentenceIndex(paragraphs: ParagraphData[]): SentenceIndex[]
   }
   return result
 }
+
+export { buildSentenceIndex as tokenizeParagraphs }
