@@ -26,6 +26,12 @@ async function init() {
       sendResponse(sentences)
       return true
     }
+    if (message.type === 'SCROLL_TO_ANCHOR') {
+      const block = document.querySelector(
+        `.note-block[data-anchor="${message.anchorHash}"]`
+      )
+      block?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
   })
 }
 

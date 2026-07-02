@@ -36,6 +36,7 @@ export type Message =
   | { type: 'TTS_HIGHLIGHT'; globalIndex: number; text: string }
   | { type: 'TTS_STATE_UPDATE'; state: TtsState }
   | { type: 'GET_SENTENCES' }
+  | { type: 'SCROLL_TO_ANCHOR'; anchorHash: string }
   | { type: 'NOTES_GET' }
   | { type: 'NOTES_DATA'; notes: NoteRecord }
   | { type: 'NOTE_SAVE'; note: Note }
