@@ -13,13 +13,6 @@ function sendToServiceWorker(message: Message): void {
   chrome.runtime.sendMessage(message)
 }
 
-function sendToActiveTab(message: Message): void {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const tabId = tabs[0]?.id
-    if (tabId) chrome.tabs.sendMessage(tabId, message)
-  })
-}
-
 export function useTts() {
   const [state, setState] = useState<TtsState>(DEFAULT_STATE)
 
@@ -55,7 +48,6 @@ export function useTts() {
     sendToServiceWorker({ type: 'TTS_JUMP_KEYWORD', keyword })
   }, [])
 
-  // 监听 Service Worker 状态更新
   useEffect(() => {
     const listener = (message: Message) => {
       if (message.type === 'TTS_STATE_UPDATE') {
