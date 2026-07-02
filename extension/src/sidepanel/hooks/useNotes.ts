@@ -7,11 +7,10 @@ export function useNotes() {
   const [currentUrl, setCurrentUrl] = useState('')
 
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const url = tabs[0]?.url ?? ''
       setCurrentUrl(url)
-      const stored = await getNotes(url)
-      setNotes(stored)
+      getNotes(url).then(setNotes)
     })
   }, [])
 
