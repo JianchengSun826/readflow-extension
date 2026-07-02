@@ -2,7 +2,6 @@ import type { Message, SentenceIndex, TtsState } from '../shared/messages'
 
 let sentences: SentenceIndex[] = []
 let currentIndex = 0
-let isPlaying = false
 
 export function findKeywordIndex(list: SentenceIndex[], keyword: string): number {
   const idx = list.findIndex(s => s.text.includes(keyword))
@@ -37,8 +36,6 @@ function speakCurrent(): void {
         if (currentIndex < sentences.length - 1) {
           currentIndex++
           speakCurrent()
-        } else {
-          isPlaying = false
         }
       }
     },
@@ -56,24 +53,20 @@ export function handleMessage(
     case 'TTS_START':
       sentences = message.sentences
       currentIndex = 0
-      isPlaying = true
       chrome.tts.stop()
       speakCurrent()
       break
 
     case 'TTS_PAUSE':
       chrome.tts.pause()
-      isPlaying = false
       break
 
     case 'TTS_RESUME':
       chrome.tts.resume()
-      isPlaying = true
       break
 
     case 'TTS_STOP':
       chrome.tts.stop()
-      isPlaying = false
       sentences = []
       break
 

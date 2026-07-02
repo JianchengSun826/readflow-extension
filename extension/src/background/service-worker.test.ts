@@ -45,7 +45,7 @@ describe('handleMessage', () => {
     )
     // Make chrome.tts.speak call the onEvent end callback synchronously for nav tests
     ;(chrome.tts.speak as ReturnType<typeof vi.fn>).mockImplementation(
-      (_text: string, _opts?: chrome.tts.SpeakOptions) => {
+      (_text: string, _opts?: object) => {
         // do nothing by default; individual tests can override
       }
     )
@@ -194,7 +194,7 @@ describe('handleMessage', () => {
   it('auto-advances to next sentence on TTS end event', () => {
     // Override speak to fire end event synchronously
     ;(chrome.tts.speak as ReturnType<typeof vi.fn>).mockImplementation(
-      (_text: string, opts?: chrome.tts.SpeakOptions) => {
+      (_text: string, opts?: object & { onEvent?: (e: { type: string; charIndex: number }) => void }) => {
         opts?.onEvent?.({ type: 'end', charIndex: 0 })
       }
     )

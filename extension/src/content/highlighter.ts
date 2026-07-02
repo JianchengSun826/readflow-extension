@@ -1,7 +1,5 @@
 import type { ParagraphElement } from './extractor'
 
-let currentHighlightEl: Element | null = null
-
 export function highlightSentence(
   paragraphs: ParagraphElement[],
   globalIndex: number,
@@ -15,7 +13,6 @@ export function highlightSentence(
 
   const wrapper = document.createElement('mark')
   wrapper.className = 'tts-highlight'
-  currentHighlightEl = wrapper
 
   para.element.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
@@ -28,5 +25,4 @@ export function clearHighlight(): void {
       parent.normalize()
     }
   })
-  currentHighlightEl = null
 }

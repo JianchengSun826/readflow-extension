@@ -7,7 +7,7 @@ async function init() {
   await initNotes()
   attachNoteButtons()
 
-  chrome.runtime.onMessage.addListener((message: Message, sender, sendResponse) => {
+  chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) => {
     if (message.type === 'TTS_HIGHLIGHT') {
       clearHighlight()
       const paragraphs = extractParagraphs()

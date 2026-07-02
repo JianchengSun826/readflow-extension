@@ -86,7 +86,7 @@ export function attachNoteButtons(): void {
       }
     })
     para.element.addEventListener('mouseleave', (e) => {
-      if (!wrapper.contains(e.relatedTarget as Node)) {
+      if (!wrapper.contains((e as MouseEvent).relatedTarget as Node)) {
         wrapper.remove()
       }
     })
