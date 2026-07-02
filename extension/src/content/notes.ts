@@ -26,8 +26,12 @@ export function insertNoteBlock(
   deleteBtn.addEventListener('click', async () => {
     const noteId = block.getAttribute('data-note-id')
     if (noteId && confirm('删除这条笔记？')) {
-      await deleteNote(CURRENT_URL, noteId)
-      block.remove()
+      try {
+        await deleteNote(CURRENT_URL, noteId)
+        block.remove()
+      } catch (e) {
+        console.error('Failed to delete note:', e)
+      }
     }
   })
 
@@ -76,7 +80,9 @@ export function attachNoteButtons(): void {
     para.element.addEventListener('mouseenter', () => {
       const next = para.element.nextElementSibling
       if (!next?.classList.contains('note-block')) {
-        para.element.insertAdjacentElement('afterend', wrapper)
+        if (!wrapper.parentNode) {
+          para.element.insertAdjacentElement('afterend', wrapper)
+        }
       }
     })
     para.element.addEventListener('mouseleave', (e) => {
