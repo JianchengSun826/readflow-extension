@@ -7,7 +7,7 @@ async function init() {
   await initNotes()
   attachNoteButtons()
 
-  chrome.runtime.onMessage.addListener((message: Message) => {
+  chrome.runtime.onMessage.addListener((message: Message, sender, sendResponse) => {
     if (message.type === 'TTS_HIGHLIGHT') {
       clearHighlight()
       const paragraphs = extractParagraphs()
@@ -20,6 +20,11 @@ async function init() {
         targetPara.element.classList.add('tts-highlight')
         setTimeout(() => targetPara.element.classList.remove('tts-highlight'), 3000)
       }
+    }
+    if (message.type === 'GET_SENTENCES') {
+      const sentences = buildPageIndex()
+      sendResponse(sentences)
+      return true
     }
   })
 }
