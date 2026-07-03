@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="64" fill="#f59e0b"/>
+
+  <!-- Book shape -->
+  <rect x="30" y="36" width="30" height="56" rx="3" fill="white" opacity="0.95"/>
+  <rect x="68" y="36" width="30" height="56" rx="3" fill="white" opacity="0.85"/>
+  <!-- Book spine line -->
+  <rect x="61" y="36" width="6" height="56" fill="#f59e0b"/>
+
+  <!-- Sound wave lines (right side of book, top area) -->
+  <path d="M80 55 Q88 62 80 69" stroke="#f59e0b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M84 50 Q96 62 84 74" stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Text lines on left page -->
+  <rect x="36" y="50" width="18" height="3" rx="1.5" fill="#f59e0b" opacity="0.5"/>
+  <rect x="36" y="58" width="18" height="3" rx="1.5" fill="#f59e0b" opacity="0.5"/>
+  <rect x="36" y="66" width="12" height="3" rx="1.5" fill="#f59e0b" opacity="0.5"/>
+</svg>

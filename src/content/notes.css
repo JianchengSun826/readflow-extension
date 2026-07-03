@@ -1,0 +1,67 @@
+.note-block {
+  position: relative;
+  margin: 8px 0;
+  padding: 10px 36px 10px 12px;
+  background-color: #fffbeb;
+  border-left: 3px solid #f59e0b;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.note-content {
+  min-height: 40px;
+  outline: none;
+  color: #374151;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.note-content:empty::before {
+  content: attr(placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.note-delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 14px;
+  line-height: 1;
+  padding: 2px 4px;
+}
+
+.note-delete-btn:hover {
+  color: #ef4444;
+}
+
+.note-btn-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin: 2px 0;
+}
+
+.note-add-btn {
+  background: none;
+  border: 1px dashed #d1d5db;
+  border-radius: 4px;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 8px;
+}
+
+.note-add-btn:hover {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.tts-highlight {
+  background-color: #fef08a;
+  border-radius: 2px;
+}
