@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "ReadFlow",
+  "version": "0.1.0",
+  "description": "Read any webpage aloud with sentence navigation & keyword jump. Add inline notes that persist across visits.",
+  "icons": {
+    "16": "src/assets/icons/icon16.png",
+    "48": "src/assets/icons/icon48.png",
+    "128": "src/assets/icons/icon128.png"
+  },
+  "permissions": ["storage", "activeTab", "tabs", "scripting", "sidePanel", "offscreen"],
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [{
+    "resources": ["src/offscreen/offscreen.html"],
+    "matches": ["<all_urls>"]
+  }],
+  "side_panel": {
+    "default_path": "src/sidepanel/index.html"
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.ts"]
+    }
+  ],
+  "action": {
+    "default_title": "ReadFlow",
+    "default_icon": {
+      "16": "src/assets/icons/icon16.png",
+      "48": "src/assets/icons/icon48.png",
+      "128": "src/assets/icons/icon128.png"
+    }
+  }
+}

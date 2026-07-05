@@ -37,20 +37,78 @@ async function hashAnchorLocal(text: string): Promise<string> {
   return bytes.map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16)
 }
 
+// Split element content into segments on consecutive <br> tags
+function extractTextSegments(el: HTMLElement): string[] {
+  const segments: string[] = []
+  let current = ''
+  let prevWasBr = false
+
+  function walk(node: ChildNode) {
+    if (node.nodeName === 'BR') {
+      if (prevWasBr) {
+        const t = current.trim()
+        if (t) segments.push(t)
+        current = ''
+        prevWasBr = false
+      } else {
+        prevWasBr = true
+      }
+    } else {
+      prevWasBr = false
+      if (node.nodeType === Node.TEXT_NODE) {
+        current += node.textContent ?? ''
+      } else {
+        for (const child of node.childNodes) walk(child)
+      }
+    }
+  }
+
+  for (const child of el.childNodes) walk(child)
+  const last = current.trim()
+  if (last) segments.push(last)
+  return segments
+}
+
 export function extractParagraphs(): ParagraphElement[] {
   const root = findContentRoot()
-  const elements = Array.from(
+
+  // Primary: semantic paragraph elements
+  const primary = Array.from(
     root.querySelectorAll('p, li, blockquote, h1, h2, h3, h4, h5, h6')
   )
-  return elements
     .filter(el => !isExcluded(el))
     .filter(el => (el.textContent?.trim().length ?? 0) >= 10)
-    .map((el, index) => ({
+
+  if (primary.length >= 2) {
+    return primary.map((el, index) => ({
       element: el as HTMLElement,
       index,
       text: el.textContent?.trim() ?? '',
       anchorHash: hashAnchorLocal(el.textContent?.trim().slice(0, 80) ?? ''),
     }))
+  }
+
+  // Fallback: leaf divs (no child divs) with substantial direct text
+  const fallback: { element: HTMLElement; text: string }[] = []
+  const divs = Array.from(root.querySelectorAll('div'))
+    .filter(el => !isExcluded(el))
+    .filter(el => !el.querySelector('div')) // leaf divs only
+
+  for (const div of divs) {
+    const segs = extractTextSegments(div as HTMLElement)
+    for (const text of segs) {
+      if (text.trim().length >= 10) {
+        fallback.push({ element: div as HTMLElement, text: text.trim() })
+      }
+    }
+  }
+
+  return fallback.map(({ element, text }, index) => ({
+    element,
+    index,
+    text,
+    anchorHash: hashAnchorLocal(text.slice(0, 80)),
+  }))
 }
 
 export function getFirstVisibleIndex(paragraphs: ParagraphElement[]): number {
